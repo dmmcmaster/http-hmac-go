@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"crypto/hmac"
 	"encoding/base64"
-	"github.com/acquia/http-hmac-go/signers"
 	"hash"
 	"net/http"
+
+	"github.com/acquia/http-hmac-go/signers"
 )
 
 type V2ResponseSigner struct {
@@ -28,6 +29,7 @@ func (v *V2ResponseSigner) CreateSignable(req *http.Request, authHeaders map[str
 	b.WriteString(req.Header.Get("X-Authorization-Timestamp"))
 	b.WriteString("\n")
 	b.WriteString(rw.Body.String())
+	signers.Logf("\n\n\n signable string text: \"%s\" \n\n\n", string(b.Bytes()))
 	return b.Bytes()
 }
 

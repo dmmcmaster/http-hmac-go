@@ -6,7 +6,6 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"github.com/acquia/http-hmac-go/signers"
 	"hash"
 	"net/http"
 	"net/url"
@@ -14,6 +13,8 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/acquia/http-hmac-go/signers"
 )
 
 type V2Signer struct {
@@ -53,6 +54,7 @@ func ParseAuthHeaders(req *http.Request) map[string]string {
 		}
 		ret[k] = qu
 	}
+	signers.Logf("Auth Header Map: %+v\n", ret)
 	return ret
 }
 
